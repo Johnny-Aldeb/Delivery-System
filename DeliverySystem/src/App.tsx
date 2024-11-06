@@ -16,6 +16,7 @@ import {
   CREATE_ACCOUNT_URL,
   CREATE_ACCOUNT_FORM_TITLE,
   SIGN_IN_FORM_TITLE,
+  INVALID_ACCESS_URL,
 } from "./constants";
 import "./app.css";
 
@@ -24,12 +25,15 @@ import "react-chatbot-kit/build/main.css";
 import config from "./components/Chatbot/config.js";
 import MessageParser from "./components/Chatbot/MessageParser.jsx";
 import ActionProvider from "./components/Chatbot/ActionProvider.jsx";
+import { TestLogInPage } from "Components/pages/TestLogInPage.js";
+import { InvalidAccessPage } from "Components/pages/InvalidAccesPage.js";
 
 function App() {
   const location = useLocation();
   const [signInAuth, setSignInAuth] = useState<boolean>(
     location.pathname === SIGN_IN_URL
   );
+
   return (
     <Container maxWidth="xl">
       <Header setSignInAuth={setSignInAuth} signInAuth={signInAuth} />
@@ -64,6 +68,8 @@ function App() {
               />
             }
           />
+          <Route path={INVALID_ACCESS_URL} element={<InvalidAccessPage />} />
+          <Route path={"/login-TEST"} element={<TestLogInPage />} />
         </Routes>
       </Grid2>
     </Container>

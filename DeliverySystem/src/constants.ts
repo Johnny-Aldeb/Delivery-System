@@ -11,6 +11,7 @@ export const PNG_PATH: string = 'public/ParcelerContainers/';
 export const HOME_PAGE_URL: string = '/';
 export const CREATE_ACCOUNT_URL: string = '/signup';
 export const SIGN_IN_URL: string = '/login';
+export const INVALID_ACCESS_URL = '/request-denied';
 
 export const CREATE_ACCOUNT_FORM_TITLE: string = 'Signup to Parceler';
 export const CREATE_ACCOUNT_FORM_BUTTON: string = 'Signup';

@@ -8,7 +8,7 @@ export class AuthService {
   static async Register(user: User) {
     const res = await axios.post(
       `${BASE_URL}/api/auth/register`,
-      JSON.stringify(user),
+      user,
       {
         headers: {
           "Content-Type": "application/json",
