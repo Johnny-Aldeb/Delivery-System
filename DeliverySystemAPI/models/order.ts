@@ -1,6 +1,5 @@
 import { Model, DataTypes, Optional, Association } from "sequelize";
 import { sequelize } from "../config";
-import { TrackingStatus } from "./trackingStatus";
 
 interface OrderAttributes {
   id: number;
@@ -11,6 +10,7 @@ interface OrderAttributes {
   recipientFirstName: string;
   recipientLastName: string;
   recipientAddress: string;
+  senderAddress: string;
   trackingNumber: string;
 }
 
@@ -28,6 +28,7 @@ export class Order
   public recipientFirstName!: string;
   public recipientLastName!: string;
   public recipientAddress!: string;
+  public senderAddress!: string;
   public trackingNumber!: string;
 
   // Timestamps
@@ -88,6 +89,10 @@ Order.init(
       allowNull: false,
     },
     recipientAddress: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    senderAddress: {
       type: DataTypes.STRING,
       allowNull: false,
     },

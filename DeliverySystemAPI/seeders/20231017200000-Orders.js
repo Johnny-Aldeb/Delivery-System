@@ -15,6 +15,7 @@ module.exports = {
           recipientFirstName: "Test",
           recipientLastName: "test",
           recipientAddress: "Canada",
+          senderAddress: "Montreal",
           trackingNumber: "G5K8F1L2M3",
           createdAt: new Date(),
           updatedAt: new Date(),

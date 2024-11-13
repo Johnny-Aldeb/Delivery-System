@@ -1,10 +1,20 @@
 import { Sequelize } from "sequelize";
 
-// Create a Sequelize instance
-export const sequelize = new Sequelize("parceler_db", "postgres", "password", {
-  host: "localhost",
-  dialect: "postgres",
-  logging: false,
-});
+class Database {
+  private static instance: Sequelize;
 
-export default sequelize;
+  private constructor() {}
+
+  static getInstance(): Sequelize {
+    if (!Database.instance) {
+      Database.instance = new Sequelize("parceler_db", "postgres", "password", {
+        host: "localhost",
+        dialect: "postgres",
+        logging: false,
+      });
+    }
+    return Database.instance;
+  }
+}
+
+export const sequelize = Database.getInstance();

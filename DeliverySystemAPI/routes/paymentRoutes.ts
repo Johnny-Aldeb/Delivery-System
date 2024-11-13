@@ -9,7 +9,7 @@ import {
 } from "../Services";
 import { accessTokenSecret } from "../config";
 import { Order, Package, Payment } from "../models";
-import { generateTrackingNumber } from "../utils";
+import { eventManager, generateTrackingNumber } from "../utils";
 
 export const paymentRoutes = express.Router();
 
@@ -44,6 +44,7 @@ paymentRoutes.post("/complete", async (req, res) => {
       recipientFirstName,
       recipientLastName,
       recipientAddress,
+      senderAddress,
       sessionId,
     } = req.body;
 
@@ -54,6 +55,7 @@ paymentRoutes.post("/complete", async (req, res) => {
       !recipientFirstName ||
       !recipientLastName ||
       !recipientAddress ||
+      !senderAddress ||
       !sessionId
     ) {
       return res.status(400).json({ error: "Required attributes missing" });
@@ -90,8 +92,11 @@ paymentRoutes.post("/complete", async (req, res) => {
       recipientFirstName,
       recipientLastName,
       recipientAddress,
+      senderAddress,
       trackingNumber,
     });
+
+    eventManager.emit("orderCreated", trackingNumber);
 
     res.status(200).json({ message: "Order created!" });
   } catch (err) {

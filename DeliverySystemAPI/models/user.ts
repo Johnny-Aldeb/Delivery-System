@@ -9,7 +9,6 @@ interface UserAttributes {
   email: string;
   password: string;
   userTypeId: number;
-  address: string;
   phoneNumber: string;
   accessToken?: string | null;
   accessTokenExpiry?: Date | null;
@@ -29,7 +28,6 @@ export class User
   public email!: string;
   public password!: string;
   public userTypeId!: number;
-  public address!: string;
   public phoneNumber!: string;
   public accessToken!: string | null;
   public accessTokenExpiry!: Date | null;
@@ -82,10 +80,6 @@ User.init(
     },
     userTypeId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    address: {
-      type: DataTypes.STRING,
       allowNull: false,
     },
     phoneNumber: {

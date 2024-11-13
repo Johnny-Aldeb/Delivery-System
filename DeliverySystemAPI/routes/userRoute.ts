@@ -41,8 +41,7 @@ userRoutes.put("/users/:id", isSelfOrAdmin, async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
 
-    const { firstName, lastName, email, password, address, phoneNumber } =
-      req.body;
+    const { firstName, lastName, email, password, phoneNumber } = req.body;
 
     const user = await User.findByPk(id);
 
@@ -58,7 +57,6 @@ userRoutes.put("/users/:id", isSelfOrAdmin, async (req, res) => {
       lastName: lastName && lastName === "" ? user.lastName : lastName,
       email: email && email === "" ? user.email : email,
       password: password && password === "" ? user.password : hashedPassword,
-      address: address && address === "" ? user.address : address,
       phoneNumber:
         phoneNumber && phoneNumber === "" ? user.phoneNumber : phoneNumber,
     });

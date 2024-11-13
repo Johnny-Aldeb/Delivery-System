@@ -37,10 +37,6 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
-      address: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
       phoneNumber: {
         allowNull: false,
         type: Sequelize.STRING,

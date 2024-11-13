@@ -8,7 +8,7 @@ module.exports = {
           u."firstName" AS "senderFirstName",
           u."lastName" AS "senderLastName",
           u.email AS "senderEmail",
-          u.address AS "senderAddress",
+          o."senderAddress",
           u."phoneNumber" AS "senderPhoneNumber",
           o."driverId",
           d."firstName" AS "driverFirstName",
@@ -40,7 +40,6 @@ module.exports = {
       ) AS latest_status ON latest_status."orderId" = o."id"
       LEFT JOIN public."TrackingStatus" ts ON ts."id" = latest_status."statusId"
       LEFT JOIN public."Payments" pay ON pay."id" = o."paymentId";
-;
       `);
   },
 

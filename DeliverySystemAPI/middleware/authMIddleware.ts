@@ -2,7 +2,6 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { accessTokenSecret } from "../config";
 import { Roles } from "../constants";
-import { User } from "../models";
 
 export const verifyToken = (
   req: Request,
@@ -42,7 +41,6 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-//soon
 export const isSelfOrAdmin = (
   req: Request,
   res: Response,

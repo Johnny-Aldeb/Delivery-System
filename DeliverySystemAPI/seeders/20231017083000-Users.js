@@ -14,7 +14,6 @@ module.exports = {
           password:
             "$2a$10$B8GQ33PNoJy/rI3rR19twORY6xmhtxSECFAhlwCMklbkEPVWIoIai",
           userTypeId: 1,
-          address: "Canada",
           phoneNumber: "1234567890",
           accessToken: null,
           accessTokenExpiry: null,
@@ -31,7 +30,6 @@ module.exports = {
           password:
             "$2a$10$KiZjidNIlH8F5xwA4yOwOOX28bl8bK8ZL8zu4yyoZHJY4Q4M15lMm",
           userTypeId: 3,
-          address: "Montreal",
           phoneNumber: "123456789",
           accessToken: null,
           accessTokenExpiry: null,

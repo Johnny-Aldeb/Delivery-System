@@ -6,7 +6,7 @@ import {
   OrderStatusHistoryView,
   Package,
 } from "../models";
-import { isAdmin } from "../middleware";
+import { isAdmin, verifyToken } from "../middleware";
 
 export const orderRoutes = express.Router();
 
@@ -133,62 +133,51 @@ orderRoutes.get("/driver/:driverId", async (req, res) => {
   }
 });
 
+orderRoutes.put("/status", verifyToken, async (req, res) => {
+  try {
+    let { orderId, statusId } = req.body;
+
+    orderId = parseInt(orderId, 10);
+    statusId = parseInt(statusId, 10);
+
+    if (!orderId || !statusId) {
+      return res.status(404).json({ error: "Missing data" });
+    }
+
+    const order = await OrderStatusHistory.findOne({
+      where: { orderId },
+      order: [["createdAt", "DESC"]],
+    });
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    if (order.statusId === statusId) {
+      return res
+        .status(404)
+        .json({ error: "The order is already in the requested status." });
+    }
+
+    await OrderStatusHistory.create({
+      orderId,
+      statusId,
+    });
+
+    const updatedOrder = await OrderDetailsView.findOne({
+      where: { id: orderId },
+    });
+
+    const statusHistory = await OrderStatusHistoryView.findAll({
+      where: { orderId },
+      order: [["createdAt", "ASC"]],
+    });
+
+    res.status(200).json({ updatedOrder, statusHistory });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 // Update order
 //soon
-
-// create order
-//not used not needed
-// orderRoutes.post("/", async (req, res) => {
-//   try {
-//     const token = req.header("Authorization");
-//     if (!token) return res.status(401).json({ error: "Access denied" });
-
-//     const decoded = jwt.verify(token, accessTokenSecret) as JwtPayload;
-
-//     const { userId } = decoded;
-
-//     const {
-//       weight,
-//       dimension,
-//       declaredValue,
-//       recipientFirstName,
-//       recipientLastName,
-//       recipientAddress,
-//     } = req.body;
-
-//     if (
-//       !weight ||
-//       !dimension ||
-//       !declaredValue ||
-//       !recipientFirstName ||
-//       !recipientLastName ||
-//       !recipientAddress
-//     ) {
-//       return res.status(400).json({ error: "Required fields" });
-//     }
-
-//     const p = await Package.create({
-//       weight,
-//       dimension,
-//       declaredValue,
-//     });
-
-//     const trackingNumber = generateTrackingNumber();
-
-//     await Order.create({
-//       packageId: p.id,
-//       paymentId: null,
-//       senderId: userId,
-//       driverId: null,
-//       statusId: 1,
-//       recipientFirstName,
-//       recipientLastName,
-//       recipientAddress,
-//       trackingNumber,
-//     });
-
-//     res.status(200).json({ message: "Order created" });
-//   } catch (error) {
-//     return res.status(500).json({ error });
-//   }
-// });

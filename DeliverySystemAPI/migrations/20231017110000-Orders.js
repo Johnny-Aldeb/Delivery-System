@@ -62,6 +62,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      senderAddress: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       trackingNumber: {
         allowNull: false,
         type: Sequelize.STRING,
