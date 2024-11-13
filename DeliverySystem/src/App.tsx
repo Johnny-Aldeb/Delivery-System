@@ -27,7 +27,6 @@ import {
 } from "./constants";
 import "./app.css";
 
-import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
 import config from "./components/Chatbot/config.js";
 import MessageParser from "./components/Chatbot/MessageParser.jsx";
@@ -37,6 +36,7 @@ import { InvalidAccessPage } from "Components/pages/InvalidAccesPage.js";
 import { UserDashboard } from "Components/pages/UserDashboard/UserDashboard.js";
 import { DriverDashboard } from "Components/pages/DriverDashboard/DriverDashboard.js";
 import { AdminDashboard } from "Components/pages/AdminDashboard/AdminDashboard.js";
+import ChatBotContainer from './components/Chatbot/ChatBotContainer'; 
 
 function App() {
   const location = useLocation();
@@ -48,11 +48,7 @@ function App() {
     <Container maxWidth="xl">
       <Header setSignInAuth={setSignInAuth} signInAuth={signInAuth} />
       <Grid2>
-        {/* <Chatbot
-          config={config}
-          messageParser={MessageParser}
-          actionProvider={ActionProvider}
-        /> */}
+        <ChatBotContainer />
 
         <Routes>
           <Route path={HOME_PAGE_URL} element={<HomePage />} />
