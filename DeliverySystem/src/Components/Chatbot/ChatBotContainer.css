@@ -1,0 +1,36 @@
+/* ChatBotContainer.css */
+
+/* Button to open/close the chatbot */
+.chatbot-toggle-logo {
+  position: fixed; /* Position the logo fixed on the screen */
+  bottom: 20px; /* Place it near the bottom of the screen */
+  right: 20px; /* Place it near the right edge */
+  width: 60px; /* Set logo width */
+  height: 60px; /* Set logo height */
+  cursor: pointer; /* Make it clickable */
+  transition: transform 0.3s ease; /* Smooth scale transition */
+  z-index: 1000; /* Ensure it is above other content */
+}
+  
+ 
+.chatbot-toggle-logo:hover {
+  transform: scale(1.1); /* Slightly scale up the logo when hovered */
+}
+  
+/* Container for the chatbot */
+.chatbot-container {
+    position: fixed; /* Fixed positioning */
+    bottom: 80px; /* Place it above the button */
+    right: 20px; /* Align with the button */
+    z-index: 999; /* Ensure it is below the button */
+    height: 500px; /* Fixed height for the chatbot */
+    overflow-y: auto; /* Allow scrolling if messages overflow */
+    background-color: #fff; /* White background for the chatbot */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    border-radius: 8px; /* Rounded corners for the chatbot */
+  }
+  
+  /* Add padding around the chatbot messages */
+  .chatbot-container .chatbot-kit-chat {
+    padding: 10px;
+  }
