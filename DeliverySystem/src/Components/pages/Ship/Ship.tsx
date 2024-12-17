@@ -11,6 +11,7 @@ import {
   BACKGROUND_BOTTOM,
   BACKGROUND_RIGHT,
   IMAGE4,
+  SIGN_IN_URL,
 } from "../../../constants.ts";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -145,17 +146,14 @@ export default function Ship() {
     backgroundSize: "cover",
   });
 
-  const handleNext = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
-
     const formData = new FormData(e.target as HTMLFormElement);
     const address = `${formData.get("senderApartment") ? formData.get("senderApartment") + "-" : ""}${shipmentData.originStreetNumber} ${shipmentData.originStreetName}, ${shipmentData.originCity}, ${shipmentData.originProvince} ${shipmentData.originPostalCode}, ${shipmentData.originCountry}`;
-
     setSenderAddress(address);
     setStep("recipient");
-
     console.log({
-      senderAddress: address,
+      senderAddress,
       recipientAddress,
       recipientFirstName,
       recipientLastName,
@@ -163,9 +161,8 @@ export default function Ship() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const formData = new FormData(e.target as HTMLFormElement);
     const address = `${formData.get("recipientApartment") ? formData.get("recipientApartment") + "-" : ""}${shipmentData.destinationStreetNumber} ${shipmentData.destinationStreetName}, ${shipmentData.destinationCity}, ${shipmentData.destinationProvince} ${shipmentData.destinationPostalCode}, ${shipmentData.destinationCountry}`;
     const firstName = formData.get("recipientFirstName") as string;
@@ -175,28 +172,30 @@ export default function Ship() {
     setRecipientFirstName(firstName);
     setRecipientLastName(lastName);
 
-    try {
-      const shipmentPayload = {
-        weight: shipmentData.weight,
-        recipientFirstName: firstName,
-        recipientLastName: lastName,
-        senderAddress,
-        recipientAddress: address,
-      };
+    const initiatePayment = async () => {
+      const token = user?.authToken; // Retrieve the token
 
-      sessionStorage.setItem(
-          "shipmentPayload",
-          JSON.stringify(shipmentPayload),
-      );
-
-      const token = user?.authToken;
       if (!token) {
         console.error("Authentication token is missing");
         navigate("/login", { state: { from: location.pathname } });
         return;
       }
 
-      const response = await axios.post(
+      try {
+        const shipmentPayload = {
+          weight: shipmentData.weight,
+          recipientFirstName: firstName,
+          recipientLastName: lastName,
+          senderAddress,
+          recipientAddress: address,
+        };
+
+        sessionStorage.setItem(
+          "shipmentPayload",
+          JSON.stringify(shipmentPayload),
+        );
+
+        const response = await axios.post(
           "http://localhost:3001/api/payment/checkout",
           {
             amount: Math.round(shipmentData.totalWithTax * 100),
@@ -210,12 +209,19 @@ export default function Ship() {
               "Content-Type": "application/json",
             },
           },
-      );
+        );
 
-      window.location.href = response.data.url;
-    } catch (error) {
-      console.error("Payment initiation failed:", error);
-    }
+        window.location.href = response.data.url;
+      } catch (error) {
+        console.error(
+          "Payment initiation failed:",
+          error.response?.data || error.message,
+        );
+      }
+    };
+
+    // Call the initiatePayment function
+    await initiatePayment();
   };
 
   const formik = useFormik<FormValues>({
@@ -238,22 +244,7 @@ export default function Ship() {
       recipientCountry: "",
     },
     validationSchema,
-    onSubmit: async (_, { setSubmitting }) => {
-      setSubmitting(true);
-
-      const eventMock = {
-        preventDefault: () => {}, // Mock preventDefault to avoid errors
-        target: document.querySelector("form") as HTMLFormElement, // Mock the form target
-      } as unknown as React.FormEvent<HTMLFormElement>;
-
-      if (step === "sender") {
-        handleNext(eventMock);
-      } else {
-        await handleSubmit(eventMock);
-      }
-
-      setSubmitting(false);
-    },
+    onSubmit: step === "sender" ? handleNext : handleSubmit,
   });
 
   const renderFormFields = () => {

@@ -13,19 +13,6 @@ import { UserOrderTableRow } from "./UserOrderTableRow";
 import { OrderService } from "../../../services/OrderService";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import {Order} from "../../../models";
-
-type RowData = {
-  trackingNumber: string;
-  driver: string;
-  recipient: string;
-  destination: string;
-  status: string;
-  packageDimension: string;
-  weight: number;
-  cost: string;
-  paymentMethod: string;
-};
 
 function createData(
   trackingNumber: string,
@@ -59,14 +46,14 @@ export const UserOrderTable = () => {
   });
 
   const user = useAuthentication(ROLE_USER);
-  const [dataRows, setDataRows] = useState<RowData[]>([]);
+  const [dataRows, setDataRows] = useState([]);
 
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, isError } = useQuery(
     ["getOrdersBySenderId", user?.userInfo?.id],
-    () => OrderService.GetOrdersBySenderId(user?.userInfo?.id as number),
+    () => OrderService.GetOrdersBySenderId(user?.userInfo?.id),
     {
       onSuccess: (data) => {
-        const transformedData = data.map((order: Order) =>
+        const transformedData = data.map((order) =>
           createData(
             order.trackingNumber,
             `${order.driverFirstName} ${order.driverLastName}`,
@@ -89,10 +76,7 @@ export const UserOrderTable = () => {
     <>
       {!isLoading && (
         <Grid2 container justifyContent="center">
-          <Grid2
-              // item xs={12} md={12}
-              sx={{ width: "100%" }}
-          >
+          <Grid2 item xs={12} md={12} sx={{ width: "100%" }}>
             <Card
               sx={{
                 height: "400px",
@@ -161,7 +145,7 @@ export const UserOrderTable = () => {
                   <TableBody>
                     {dataRows?.map((row, index) => (
                       <UserOrderTableRow
-                        key={row.trackingNumber}
+                        key={row?.tackingNumber}
                         row={row}
                         index={index}
                       />

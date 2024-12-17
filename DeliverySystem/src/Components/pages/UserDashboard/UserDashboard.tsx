@@ -1,6 +1,7 @@
 import { Grid2, Typography, Button } from "@mui/material";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground";
 import { useAuthentication, ROLE_USER } from "../../../Hooks/useAuthentication";
+import { USER_INFO, USER_FIRST_NAME } from "../../../Hooks/constants";
 import { BACKGROUND_RIGHT, IMAGE3, QUOTE_URL } from "../../../constants";
 import { USER_DASHBOARD_TITLE } from "./constants";
 import { UserOrderTable } from "./UserOrderTable";
@@ -18,13 +19,11 @@ export const UserDashboard = () => {
   const user = useAuthentication(ROLE_USER);
 
   return (
-    <Grid2
-        // xs={12} md={7}
-    >
+    <Grid2 xs={12} md={7}>
       <Grid2 container direction="column" alignItems="center">
         <Grid2>
           <PageTitle
-            title={`${user?.userInfo?.firstName}'s ${USER_DASHBOARD_TITLE}`}
+            title={`${user?.[USER_INFO]?.[USER_FIRST_NAME]}'s ${USER_DASHBOARD_TITLE}`}
           />
         </Grid2>
 

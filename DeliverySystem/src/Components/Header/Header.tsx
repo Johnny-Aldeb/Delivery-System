@@ -8,7 +8,7 @@ export const Header = ({
   setSignInAuth,
   signInAuth,
 }: {
-  setSignInAuth: (auth: boolean) => void;
+  setSignInAuth: Function;
   signInAuth: boolean;
 }) => {
   const navigate = useNavigate();

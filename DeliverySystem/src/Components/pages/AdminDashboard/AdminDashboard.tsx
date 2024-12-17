@@ -1,4 +1,4 @@
-import { Box, Grid2 } from "@mui/material";
+import { Box, Button, ButtonGroup, Grid2, Typography } from "@mui/material";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground";
 import {
   useAuthentication,
@@ -11,6 +11,7 @@ import { AdminDashboardAccounts } from "./AdminDashboardAccounts";
 import { AdminDashboardOrders } from "./AdminDashboardOrders";
 import { AdminDashboardTitle } from "./AdminDashboardTitle";
 import "./adminDashboard.css";
+import { PageTitle } from "../../PageTitle.tsx";
 
 export const AdminDashboard = () => {
   useBodyBackground({
@@ -19,7 +20,7 @@ export const AdminDashboard = () => {
     backgroundSize: "cover",
   });
 
-  useAuthentication(ROLE_ADMIN);
+  const userInfo = useAuthentication(ROLE_ADMIN);
   const [mode, setMode] = useState<boolean>(ACCOUNTS_INDEX);
 
   return (
