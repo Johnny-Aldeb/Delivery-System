@@ -11,7 +11,6 @@ import {
 } from "../../../Hooks/useAuthentication";
 import { userTypeMapper } from "../../AuthForm/authFormUtils";
 import "./adminDashboard.css";
-import {User} from "../../../models";
 
 export const AdminDashboardAccounts = () => {
   const user = useAuthentication(ROLE_ADMIN);
@@ -40,7 +39,7 @@ export const AdminDashboardAccounts = () => {
       >
         {!isLoading &&
           users &&
-          users?.map((user: User, index: number) => {
+          users?.map((user, index) => {
             return (
               <Accordion
                 key={user.email}

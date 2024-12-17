@@ -5,7 +5,7 @@ import { CUSTOMER_ACCOUNT_TYPE, DRIVER_ACCOUNT_TYPE } from "../constants";
 
 export const handleAccountToggle = (
   accountType: string,
-  setAccountType: (type: string) => void,
+  setAccountType: Function,
   formik: FormikProps<initialValuesCreateAccount | initialValuesSignIn>,
   signInAuth: boolean
 ) => {

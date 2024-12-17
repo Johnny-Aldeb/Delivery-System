@@ -1,13 +1,6 @@
 import { Card, Typography } from "@mui/material";
 
-interface AdminCustomCardProps {
-    title: string; // Specify the type of 'title'
-    first: string;
-    second: string;
-    third: string;
-}
-
-export const AdminCustomCard = ({ title, first, second, third }: AdminCustomCardProps) => {
+export const AdminCustomCard = ({ title, first, second, third }) => {
   return (
     <Card className="card-content" sx={{ boxShadow: "none" }}>
       <Typography variant="h6" p={1} sx={{ fontFamily: '"Montserrat", serif' }}>

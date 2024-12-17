@@ -36,7 +36,7 @@ import {
   createAccountSchema,
   isPasswordField,
 } from "./constants";
-import { AuthService } from "../../services";
+import { AuthService } from "../../services/AuthService";
 import cloneDeep from "lodash/cloneDeep";
 import {
   prepareCreateAccountValues,
@@ -115,24 +115,13 @@ export const AuthForm = ({
       ? (initialValues as initialValuesSignIn)
       : (initialValues as initialValuesCreateAccount),
     validationSchema: signInAuth ? signInSchema : createAccountSchema,
-      onSubmit: (values) => {
-          const formValues = cloneDeep(values);
-
-          const preparedValues = signInAuth
-              ? {
-                  ...prepareSignInValues(formValues as initialValuesSignIn),
-                  firstName: "N/A",
-                  lastName: "N/A",
-                  userTypeId: ROLE_USER,
-                  phoneNumber: "000-000-0000",
-              }
-              : {
-                  ...prepareCreateAccountValues(formValues as initialValuesCreateAccount),
-                  userTypeId: prepareCreateAccountValues(formValues as initialValuesCreateAccount).userTypeId ?? ROLE_USER, // Default to ROLE_USER if undefined
-              };
-
-          mutate(preparedValues);
-      },
+    onSubmit: (values) => {
+      const formValues = cloneDeep(values);
+      const preparedValues = signInAuth
+        ? prepareSignInValues(formValues)
+        : prepareCreateAccountValues(formValues);
+      mutate(preparedValues);
+    },
   });
 
   useEffect(() => {
@@ -221,10 +210,7 @@ export const AuthForm = ({
               <Grid2 container justifyContent={"center"}>
                 <Button
                   disableRipple
-                  onClick={(e) => {
-                      e.preventDefault();
-                      formik.handleSubmit();
-                  }}
+                  onClick={formik.handleSubmit}
                   type="submit"
                   variant="contained"
                   sx={{

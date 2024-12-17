@@ -9,6 +9,7 @@ import {
   ROLE_USER,
   ROLE_DRIVER,
 } from "../../Hooks/useAuthentication";
+import { USER_INFO, USER_ID, USER_TYPE_ID } from "../../Hooks/constants";
 
 const reRouteMap = new Map([
   [ROLE_USER, USER_DASHBOARD_ROUTE],
@@ -17,9 +18,9 @@ const reRouteMap = new Map([
 ]);
 
 export const handleClickPage = (
-  navigate: (url: string, options?: { replace?: boolean; state?: any }) => void,
+  navigate: Function,
   url: string,
-  setState: (value: boolean) => void,
+  setState: Function,
   bool: boolean
 ) => {
   setState(bool);
@@ -27,13 +28,12 @@ export const handleClickPage = (
 };
 
 export const handleDashboardReroute = (
-    navigate: (url: string, options?: { replace?: boolean; state?: any }) => void,
-    authContext: AuthContextType
+  navigate: Function,
+  authContext: AuthContextType
 ) => {
-  if (authContext.userInfo?.userTypeId === undefined) {
-    throw new Error("UserTypeId is undefined");
-  }
   navigate(
-      `${reRouteMap.get(authContext.userInfo?.userTypeId)}${authContext.userInfo?.id}`
+    `${reRouteMap.get(authContext?.[USER_INFO]?.[USER_TYPE_ID])}${
+      authContext?.[USER_INFO]?.[USER_ID]
+    }`
   );
 };
