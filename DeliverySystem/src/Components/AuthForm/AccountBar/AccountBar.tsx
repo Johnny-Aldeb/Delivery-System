@@ -13,7 +13,7 @@ export const AccountBar = ({
   signInAuth,
 }: {
   accountType: string;
-  setAccountType: Function;
+  setAccountType: (type: string) => void;
   formik: FormikProps<initialValuesCreateAccount | initialValuesSignIn>;
   signInAuth: boolean;
 }) => {

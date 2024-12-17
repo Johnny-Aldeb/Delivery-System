@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
-import { User } from "../models";
 import { useCallback } from "react";
-import { AuthService, OrderService, UserService } from "../services";
+import { OrderService } from "../services";
 
 export const Test = () => {
   const onClick = useCallback(async () => {

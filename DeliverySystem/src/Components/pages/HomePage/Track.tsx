@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground.ts";
 import {
   BACKGROUND_BOTTOM,
-  BACKGROUND_TOP,
-  IMAGE1,
   IMAGE2,
-  IMAGE3,
 } from "../../../constants.ts";
 import { useParams } from "react-router-dom";
 import { Card, Grid, CardContent, Typography, Box, Grid2 } from "@mui/material";
@@ -233,7 +230,14 @@ export const Track = () => {
     return `${city}, ${province}`;
   };
 
-  const trackingStatus = orderData?.statusHistory;
+    const trackingStatus = orderData?.statusHistory
+        ? Object.entries(orderData.statusHistory).map(([key, value], index) => ({
+            id: index,
+            statusName: key,
+            createdAt: value,
+        }))
+        : [];
+
   return (
     <Grid2 container justifyContent="center" alignItems="center">
       <Card

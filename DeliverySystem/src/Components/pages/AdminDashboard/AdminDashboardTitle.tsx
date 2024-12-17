@@ -8,8 +8,10 @@ import {
 import { getClassName } from "./adminUtils";
 import "./adminDashboard.css";
 
-export const AdminDashboardTitle = ({ mode, setMode }) => {
-  return (
+export const AdminDashboardTitle = (props: any) => {
+    const { mode, setMode } = props;
+
+    return (
     <Box
       sx={{
         width: "450px",

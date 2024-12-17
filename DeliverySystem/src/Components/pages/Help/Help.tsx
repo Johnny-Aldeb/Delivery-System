@@ -75,7 +75,7 @@ export default function Help() {
                 pb: "30px",
               }}
             >
-              Parceler is a delivery service platform developed by the our team,
+              Parceler is a delivery service platform developed by our team,
               DEVengers as a university project for SOEN 343 to demonstrate our
               skills in software architecture and design. Parceler includes
               features such as shipping quotations, package tracking, payment
@@ -281,27 +281,28 @@ export default function Help() {
               Parceler was developed by the DEVengers, a team of dedicated
               students collaborating on a university project for a Software
               Architecture and Design course. The team includes{" "}
-              {/*<Link href="https://github.com/mavmoud" underline="none">*/}
-              {/*  {"Mahmoud"}*/}
-              {/*</Link>*/}
-              {/*,{" "}*/}
-              {/*<Link href="https://github.com/F4KER-X" underline="none">*/}
-              {/*  {"Danny"}*/}
-              {/*</Link>*/}
-              {/*,{" "}*/}
-              {/*<Link href="https://github.com/GianlucaGirardi" underline="none">*/}
-              {/*  {"Luca"}*/}
-              {/*</Link>*/}
-              {/*,{" "}*/}
-              {/*<Link href="https://github.com/Johnny-Aldeb" underline="none">*/}
-              {/*  {"Johnny"}*/}
-              {/*</Link>*/}
-              {/*, and{" "}*/}
-              {/*<Link href="https://github.com/AsimRahman88" underline="none">*/}
-              {/*  {"Asim"}*/}
-              {/*</Link>*/}, who each brought unique skills to the project,
-              contributing to areas such as frontend development, backend
-              design, and overall system architecture.
+                <Link href="https://github.com/mavmoud" underline="none">
+                    {"Mahmoud"}
+                </Link>
+                ,{" "}
+                <Link href="https://github.com/F4KER-X" underline="none">
+                    {"Danny"}
+                </Link>
+                ,{" "}
+                <Link href="https://github.com/GianlucaGirardi" underline="none">
+                    {"Luca"}
+                </Link>
+                ,{" "}
+                <Link href="https://github.com/Johnny-Aldeb" underline="none">
+                    {"Johnny"}
+                </Link>
+                , and{" "}
+                <Link href="https://github.com/AsimRahman88" underline="none">
+                    {"Asim"}
+                </Link>
+                , who each brought unique skills to the project, contributing to
+                areas such as frontend development, backend design, and overall
+                system architecture.
             </AccordionDetails>
           </Accordion>
         </CardContent>

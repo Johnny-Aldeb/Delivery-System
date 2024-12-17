@@ -9,9 +9,9 @@ import {
   useAuthentication,
   ROLE_ADMIN,
 } from "../../../Hooks/useAuthentication";
-import { ORDER_TRACKING_NUMBER } from "./constant";
 import { AdminCustomCard } from "./AdminCustomCard";
 import "./adminDashboard.css";
+import {Order} from "../../../models";
 
 export const AdminDashboardOrders = () => {
   const user = useAuthentication(ROLE_ADMIN);
@@ -40,8 +40,8 @@ export const AdminDashboardOrders = () => {
       >
         {!isLoading &&
           orders &&
-          orders?.map((order: object, index: number) => {
-            const trackingNumber = order?.[ORDER_TRACKING_NUMBER];
+          orders?.map((order: Order, index: number) => {
+            const trackingNumber = order.trackingNumber;
             return (
               <Accordion
                 key={trackingNumber}
@@ -105,4 +105,4 @@ export const AdminDashboardOrders = () => {
       </Box>
     </Grid2>
   );
-};
+}

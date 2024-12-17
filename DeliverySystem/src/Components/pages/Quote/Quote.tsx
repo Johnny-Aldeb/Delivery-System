@@ -164,7 +164,7 @@ const extractAddressComponents = (place: Place): AddressComponents | null => {
       city = component.long_name;
     }
     if (types.includes("administrative_area_level_1")) {
-      province = component.short_name; // Using short_name for province abbreviation (e.g., ON instead of Ontario)
+      province = component.short_name;
     }
     if (types.includes("postal_code")) {
       postalCode = component.long_name;

@@ -11,7 +11,23 @@ import TableRow from "@mui/material/TableRow";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-export const UserOrderTableRow = ({ row, index }) => {
+export const UserOrderTableRow = ({
+                                    row,
+                                    index,
+                                  }: {
+  row: {
+    trackingNumber: string;
+    driver: string;
+    recipient: string;
+    destination: string;
+    status: string;
+    packageDimension: string;
+    weight: number;
+    cost: string;
+    paymentMethod: string;
+  };
+  index: number;
+}) => {
   const [open, setOpen] = React.useState(false);
   //get package by id
   return (

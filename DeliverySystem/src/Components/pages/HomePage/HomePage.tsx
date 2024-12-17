@@ -35,7 +35,7 @@ export const HomePage = () => {
         backgroundPosition: BACKGROUND_RIGHT,
         backgroundSize: "cover",
     });
-    const authContext = useAuthentication(ROLE_ANY);
+    useAuthentication(ROLE_ANY);
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const param = queryParams.get("param");

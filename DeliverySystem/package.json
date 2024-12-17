@@ -16,6 +16,7 @@
     "@mui/material": "^6.0.2",
     "@react-google-maps/api": "^2.20.3",
     "@tanstack/react-query": "^4.36.1",
+    "@types/lodash": "^4.17.13",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "formik": "^2.4.6",

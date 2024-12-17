@@ -27,7 +27,7 @@ const StyledSecondaryButton = styled(Button)({
 export const HeaderButtonGroup = ({
   setSignInAuth,
 }: {
-  setSignInAuth: Function;
+  setSignInAuth: (auth: boolean) => void;
   signInAuth: boolean;
 }) => {
   const navigate = useNavigate();
@@ -77,15 +77,21 @@ export const HeaderButtonGroup = ({
             <StyledSecondaryButton disableRipple onClick={logout}>
               Logout
             </StyledSecondaryButton>
-            <StyledMainButton
-              disableRipple
-              sx={{
-                width: "140px",
-              }}
-              onClick={() => handleDashboardReroute(navigate, authContext)}
-            >
-              Dashboard
-            </StyledMainButton>
+              <StyledMainButton
+                  disableRipple
+                  sx={{
+                      width: "140px",
+                  }}
+                  onClick={() => {
+                      if (authContext) {
+                          handleDashboardReroute(navigate, authContext);
+                      } else {
+                          console.error("Auth context is null, cannot reroute to the dashboard.");
+                      }
+                  }}
+              >
+                  Dashboard
+              </StyledMainButton>
           </>
         )}
       </Box>

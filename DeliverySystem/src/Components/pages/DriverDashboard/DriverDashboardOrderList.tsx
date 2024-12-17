@@ -10,7 +10,6 @@ import {
   useAuthentication,
   ROLE_DRIVER,
 } from "../../../Hooks/useAuthentication";
-import { USER_INFO, USER_ID } from "../../../Hooks/constants";
 import { Grid2 } from "@mui/material";
 import { DriverOrderDetails } from "./DriverOrderDetails";
 import { Order } from "models";
@@ -19,14 +18,14 @@ export const DriverDashboardOrderList = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      setExpanded(newExpanded ? panel : false);
-    };
+      (panel: string) => (_: React.SyntheticEvent, newExpanded: boolean) => {
+        setExpanded(newExpanded ? panel : false);
+      };
 
   const user = useAuthentication(ROLE_DRIVER);
   const { data: orders, isLoading } = useQuery(
     ["getOrdersBySenderId", user?.userInfo?.id],
-    () => OrderService.GetOrdersByDriverId(user?.[USER_INFO]?.[USER_ID]),
+    () => OrderService.GetOrdersByDriverId(user?.userInfo?.id as number),
   );
 
   console.log("data", orders);
